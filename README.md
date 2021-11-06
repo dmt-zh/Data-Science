@@ -10,5 +10,5 @@
 
 #### Statistics and R:
 * [Statistics. Basics. Part 1](https://stepik.org/course/76/info)   -     [Certificate](https://stepik.org/cert/1195712)
-* [R Programming](https://stepik.org/course/497/info)   -     [In progress]
-* [Data analysis in R](https://stepik.org/course/129/info)   -     [In progress]
+* [R Programming](https://stepik.org/course/497/info)   -     [In progress]()
+* [Data analysis in R](https://stepik.org/course/129/info)   -     [In progress]()
