@@ -3,6 +3,8 @@
 ## Courses:
 
 #### Machine Learning:
+* [Intro to Machine Learning](https://www.kaggle.com/learn/intro-to-machine-learning) - [Certificate](https://www.kaggle.com/learn/certification/dmitryzhigalo/intro-to-machine-learning)
+* [Intermediate Machine Learning](https://www.kaggle.com/learn/intermediate-machine-learning) - [Certificate](https://www.kaggle.com/learn/certification/dmitryzhigalo/intermediate-machine-learning)
 * [Machine Learning](https://www.coursera.org/learn/machine-learning)  -  [Certificate](https://coursera.org/share/f2504fbb7b043e3e3383e0fc2ddb0e9c)
 * [Mathematics and Python for Data Analysis](https://www.coursera.org/specializations/machine-learning-data-analysis)  -  [Certificate](https://coursera.org/share/6a0ff2347295c33650e3a943fc9c74e4)
 * [Supervised learning](https://www.coursera.org/specializations/machine-learning-data-analysis) - [Certificate](https://coursera.org/share/601ea6ea056ec674f4d6dd6dba7f5221)
