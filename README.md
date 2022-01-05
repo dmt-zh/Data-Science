@@ -17,6 +17,9 @@
 * [Statistics. Basics. Part 1](https://stepik.org/course/76/info) -  [Certificate](https://stepik.org/cert/1195712)
 * [Statistics. Basics. Part 2](https://stepik.org/course/76/info) -  [Certificate](https://stepik.org/cert/1289891)
 
+#### Mathematics:
+* [Combinatorics for Beginners](https://www.coursera.org/learn/kombinatorika-dlya-nachinayushchikh)  -   [In progress]()
 
 ## Books studided:
 * [Jake VanderPlas - Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
+
