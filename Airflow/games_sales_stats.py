@@ -53,19 +53,19 @@ def games_sales_stats():
         return platforms
 
 
-    @task
+    @task()
     def best_publisher_japan(df):
         publisher = df.groupby('publisher').agg({'jp_sales': 'mean'}).query('jp_sales == jp_sales.max()').index.tolist()
         return publisher
 
 
-    @task
+    @task()
     def europe_vs_japan_number(df):
         number = df.groupby('name').agg({'eu_sales': 'sum', 'jp_sales': 'sum'}).query('eu_sales > jp_sales').shape[0]
         return number
 
 
-    @task
+    @task()
     def print_stats(*args):
         context = get_current_context()
         date = context['ds']
@@ -90,13 +90,3 @@ def games_sales_stats():
 
 
 get_games_sales_stats = games_sales_stats()
-
-
-
-
-
-
-
-
-
-
