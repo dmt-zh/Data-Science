@@ -3,6 +3,7 @@ from datetime import timedelta, datetime
 from airflow.decorators import dag, task
 from airflow.operators.python import get_current_context
 from airflow.models import Variable
+import telegram
 
 
 path = '/var/lib/airflow/airflow.git/dags/a.batalov/vgsales.csv'
@@ -13,11 +14,25 @@ start = datetime.today().strftime('%Y-%m-%d')
 default_args = {
     'owner': 'd.zhigalo',
     'depends_on_past': False,
-    'retries': 2,
+    'retries': 3,
     'retry_delay': timedelta(minutes=5),
     'start_date': start,
     'schedule_interval': '0 10 * * *'
 }
+
+
+def send_message(context):
+    chat_id = 1480645363
+    date = context['ds']
+    dag_id = context['dag'].dag_id
+    try:
+        bot_tocken = Variable.get('telegram_secret')
+        message = f'{date}: {dag_id} is successfully implemented.'
+        if bot_tocken != '':
+            bot = telegram.Bot(token=bot_tocken)
+            bot.send_message(chat_id=chat_id, text=message)
+    except:
+        pass
 
 
 @dag(default_args=default_args)
@@ -65,7 +80,7 @@ def games_sales_stats():
         return number
 
 
-    @task()
+    @task(on_success_callback=send_message)
     def print_stats(*args):
         context = get_current_context()
         date = context['ds']
