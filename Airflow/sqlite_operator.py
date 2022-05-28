@@ -74,7 +74,7 @@ insert_sqlite_currency = PythonOperator(
     dag=dag,
 )
 
-# Создать таблицу через SQLiteOperator
+# Создает таблицу через SQLiteOperator
 create_table_join = SqliteOperator(
     task_id='create_table_join',
     sql="""
@@ -89,12 +89,13 @@ create_table_join = SqliteOperator(
     dag=dag,
 )
 
-# Объедините данные через SQLiteOperator
+# Объединяет данные через SQLiteOperator и загружает в БД
 join_data = SqliteOperator(
     task_id='join_data',
     sql="""
+        INSERT INTO joined_data (date, code, rate, base, value)
         SELECT
-            l.date,
+            l.date AS date,
             code,
             rate,
             base,
