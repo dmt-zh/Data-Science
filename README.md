@@ -20,6 +20,12 @@
 * [Combinatorics for Beginners](https://www.coursera.org/learn/kombinatorika-dlya-nachinayushchikh)  -   [Certificate](https://www.coursera.org/account/accomplishments/verify/Z9NVG2CHXLS2)
 * [Mathematics and Python for Data Analysis](https://www.coursera.org/specializations/machine-learning-data-analysis)  -  [Certificate](https://coursera.org/share/6a0ff2347295c33650e3a943fc9c74e4)
 
+
+#### Engineering:
+* [Apache Airflow](https://stepik.org/course/99527/info)  -   [Certificate](https://stepik.org/cert/1544947)
+
+
+
 ## Books studided:
 * [Jake VanderPlas - Python Data Science Handbook](https://jakevdp.github.io/PythonDataScienceHandbook/)
 
