@@ -33,7 +33,7 @@ class MouseParser:
             p_response = self.__get_response(p_link)
             p_soup = self.__make_soup(p_response, links_only=True)
 
-            items_links = set(site + tag['href'] for tag in p_soup if tag['href'].startswith('mouse'))
+            items_links = set(root + tag['href'] for tag in p_soup if tag['href'].startswith('mouse'))
             for i_link in items_links:
                 i_response = self.__get_response(i_link)
                 article = self.__make_soup(i_response).find('p', class_='article').text.split()[-1]
