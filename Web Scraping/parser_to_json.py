@@ -54,6 +54,7 @@ class PhoneParser:
                     else:
                         item[k] = v
                 self.result_json.append(item)
+                item = {}
                 acc += 1
 
         with open('res.json', 'w', encoding='utf-8') as file:
