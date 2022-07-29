@@ -23,7 +23,7 @@
 
 #### Engineering:
 * [Apache Airflow](https://stepik.org/course/99527/info)  -   [Certificate](https://stepik.org/cert/1544947)
-
+* [Web Scraping with Python](https://stepik.org/course/104774/info)  -   [Certificate](https://stepik.org/cert/1590963)
 
 
 ## Books studided:
