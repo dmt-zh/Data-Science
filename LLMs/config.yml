@@ -1,0 +1,51 @@
+common:
+  work_dir: /data
+  model_name: google/gemma-2-9b-it
+  output_dir: checkpoints
+  hf_cache_dir: /data/google/gemma-2-9b-it_origin
+  tuned_adapter_dir: mtqc_adapter
+  merged_model_dir: tuned_gemma-2-9b
+  remove_previous: true
+
+data:
+  eval_fraction: 0.015
+  train_source: data/train.src
+  train_target: data/train.trg
+  train_reference: data/train.ref
+  test_source: data/test.src
+  test_target: data/test.trg
+  test_reference: data/test.ref
+
+lora_params:
+  alpha: 96
+  r: 48
+  dropout: 0.05
+  target_modules: all-linear
+
+sftt_trainer:
+  max_seq_length: 768
+
+training_args:
+  per_device_train_batch_size: 16
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 5
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+  save_steps: 25
+  logging_steps: 25
+  learning_rate: 0.8e-5
+  fp16: true
+  bf16: false
+  evaluation_strategy: steps
+  eval_strategy: steps
+  num_train_epochs: 1
+  max_steps: 100
+  weight_decay: 0.001
+  warmup_steps: 20
+  warmup_ratio: 0.3
+  group_by_length: true
+  lr_scheduler_type: constant
+  report_to: none
+  load_best_model_at_end: true
+  greater_is_better: false
+  metric_for_best_model: eval_loss
