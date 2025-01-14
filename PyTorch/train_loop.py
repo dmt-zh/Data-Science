@@ -207,8 +207,8 @@ class Trainer:
         training_loop = tqdm(train_loader, leave=False)
         for features, targets in training_loop:
             batch = features.reshape(-1, 784).to(device)
-            targets = targets.reshape(-1).to(torch.float32)
-            targets = torch.eye(10)[targets].to(device)
+            targets = targets.reshape(-1)
+            targets = torch.eye(10)[targets].to(torch.float32).to(device)
             predictions = self.model(batch)
             loss = self.compute_loss(predictions, targets)
             self.optimizer.zero_grad()
@@ -235,8 +235,8 @@ class Trainer:
             true_answer = 0
             for features, targets in tqdm(valid_loader, desc='Running evaluation', leave=False):
                 batch = features.reshape(-1, 784).to(device)
-                targets = targets.reshape(-1).to(torch.float32)
-                targets = torch.eye(10)[targets].to(device)
+                targets = targets.reshape(-1)
+                targets = torch.eye(10)[targets].to(torch.float32).to(device)
                 predictions = self.model(batch)
                 loss = self.compute_loss(predictions, targets)
                 val_loss.append(loss.item())
