@@ -198,8 +198,8 @@ class Trainer:
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=lr)
         self.lr_scheduler = ReduceLROnPlateau(self.optimizer, patience=lr_patience)
 
-    def train_model(self, epoch: int, train_loader: DataLoader) -> None:
-        """Функция обучения модели."""
+    def train_model(self, epoch: int, train_loader: DataLoader, data_size: int) -> None:
+        """Функция для обучения модели."""
 
         model.train()
         train_loss = []
@@ -207,8 +207,8 @@ class Trainer:
         training_loop = tqdm(train_loader, leave=False)
         for features, targets in training_loop:
             batch = features.reshape(-1, 784).to(device)
-            targets = targets.reshape(-1).to(torch.int32)
-            targets = torch.eye(10)[targets].to(torch.float32)
+            targets = targets.reshape(-1).to(torch.float32)
+            targets = torch.eye(10)[targets].to(device)
             predictions = self.model(batch)
             loss = self.compute_loss(predictions, targets)
             self.optimizer.zero_grad()
@@ -221,11 +221,13 @@ class Trainer:
                 f'Running epoch [{(epoch + 1)} / {self.epochs}], train_loss = {mean_loss:.4f}'
             )
 
-        train_acc = true_answer / len(train_loader)
+        train_acc = true_answer / data_size
+        print(f'Train true answer = {true_answer}')
+        print(f'len(train_loader) = {len(train_loader)}')
         print(f'Epoch [{(epoch + 1)} / {self.epochs}]: Train loss = {mean_loss:.4f}; Train accuracy = {train_acc:.2f}')
 
-    def eval_model(self, epoch: int, valid_loader: DataLoader):
-        """Функция валидации модели."""
+    def eval_model(self, epoch: int, valid_loader: DataLoader, data_size: int):
+        """Функция для валидации модели."""
 
         model.eval()
         with torch.no_grad():
@@ -233,26 +235,26 @@ class Trainer:
             true_answer = 0
             for features, targets in tqdm(valid_loader, desc='Running evaluation', leave=False):
                 batch = features.reshape(-1, 784).to(device)
-                targets = targets.reshape(-1)
-                targets = torch.eye(10)[targets].to(torch.float32)
+                targets = targets.reshape(-1).to(torch.float32)
+                targets = torch.eye(10)[targets].to(device)
                 predictions = self.model(batch)
                 loss = self.compute_loss(predictions, targets)
                 val_loss.append(loss.item())
                 mean_loss = sum(val_loss) / len(val_loss)
                 true_answer += (predictions.argmax(dim=1) == targets.argmax(dim=1)).sum().item()
 
-            valid_acc = true_answer / len(valid_loader)
+            valid_acc = true_answer / data_size
             print(f'Epoch [{(epoch + 1)} / {self.epochs}]: Validation loss = {mean_loss:.4f}; Validation accuracy = {valid_acc:.2f}')
 
     def run(self, dataset: Dataset, batch_size: int) -> None:
         """Функция для запуска тренировщика."""
 
-        train_data, val_data = random_split(train_dataset, [0.8, 0.2])
+        train_data, val_data = random_split(train_dataset, [0.7, 0.3])
         train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
         val_loader = DataLoader(val_data, batch_size=batch_size, shuffle=True)
         for epoch in range(self.epochs):
-            self.train_model(epoch, train_loader)
-            self.eval_model(epoch, val_loader)
+            self.train_model(epoch, train_loader, len(train_data))
+            self.eval_model(epoch, val_loader, len(val_data))
 
 ######################################################################################
 
@@ -271,11 +273,11 @@ test_data = MNISTDataset('data/mnist', transform_data).test_data(exist=True)
 model = MNISTDigitsClassifier(784, 10).to(device)
 trainer = Trainer(
     model=model,
-    epochs=5,
+    epochs=1,
     lr=0.005,
     lr_patience=5
 )
 trainer.run(
     dataset=train_dataset,
-    batch_size=64,
+    batch_size=128,
 )
